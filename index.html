@@ -3,66 +3,68 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#08090b">
-  <meta name="description" content="NEXORA AI — inteligência artificial pessoal, criativa e independente.">
-  <title>NEXORA AI</title>
+  <meta name="theme-color" content="#090a0f">
+  <meta name="description" content="NEXORA AI">
+  <title>NEXORA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-  <div class="app-shell">
-    <aside class="sidebar" id="sidebar">
-      <div class="brand"><div class="brand-mark">N</div><span>NEXORA<span class="brand-ai"> AI</span></span></div>
-      <button class="new-chat" id="newChat"><span>＋</span> Nova conversa</button>
-      <div class="side-label">ESPAÇO DE TRABALHO</div>
-      <nav class="nav-list">
-        <button class="nav-item active" data-panel="chat"><span>◌</span> Conversar</button>
-        <button class="nav-item" data-panel="memory"><span>⌘</span> Memória</button>
-        <button class="nav-item" data-panel="voice"><span>◖</span> Voz</button>
-        <button class="nav-item" data-panel="media"><span>▧</span> Criar mídia</button>
-        <button class="nav-item" data-panel="planning"><span>◷</span> Planejamento</button>
-        <button class="nav-item" data-panel="code"><span>⌘</span> Programação</button>
-      </nav>
-      <div class="sidebar-bottom">
-        <div class="profile"><div class="avatar">N</div><div><strong>NEXORA</strong><small>Espaço pessoal</small></div><span class="profile-dots">•••</span></div>
-        <div class="build-tag"><i></i> Interface inicial · Preview</div>
+  <main class="app" id="app">
+    <header class="topbar">
+      <div class="brand-mark" aria-label="NEXORA">
+        <svg viewBox="0 0 64 64" role="img" aria-hidden="true">
+          <ellipse class="orbit" cx="32" cy="32" rx="27" ry="12" transform="rotate(-28 32 32)"/>
+          <path class="brain" d="M31.8 15.5c-4.9-4.2-12.7-.6-12.7 5.9-5.7 1.6-7.5 9-3.2 13-3.1 5.7.8 12.2 7.1 12.1 1.7 5.6 7.1 7.2 11.4 3.8V18.8c-.7-1.4-1.6-2.5-2.6-3.3Z"/>
+          <path class="brain" d="M32.2 15.5c4.9-4.2 12.7-.6 12.7 5.9 5.7 1.6 7.5 9 3.2 13 3.1 5.7-.8 12.2-7.1 12.1-1.7 5.6-7.1 7.2-11.4 3.8V18.8c.7-1.4 1.6-2.5 2.6-3.3Z"/>
+          <path class="fold" d="M24 23c4 0 5.5 3.2 5.5 6.2M20 36c4.4-1.1 7.8 1.2 8.2 5.3M40 23c-4 0-5.5 3.2-5.5 6.2M44 36c-4.4-1.1-7.8 1.2-8.2 5.3"/>
+          <circle class="orbit-dot" cx="55" cy="20" r="2.5"/>
+        </svg>
       </div>
-    </aside>
-    <main class="main">
-      <header class="topbar">
-        <button class="mobile-menu" id="mobileMenu" aria-label="Abrir menu">☰</button>
-        <div class="breadcrumb">NEXORA <span>/</span> <strong id="sectionName">Conversar</strong></div>
-        <div class="top-actions"><span class="status-pill"><i></i> Ambiente de demonstração</span><button class="icon-button" aria-label="Configurações" id="settingsButton">⚙</button></div>
-      </header>
-      <section class="workspace" id="workspace">
-        <div class="welcome" id="welcome">
-          <div class="orb-wrap"><div class="orb"><div class="orb-core"></div><span class="orb-ring ring-a"></span><span class="orb-ring ring-b"></span></div></div>
-          <div class="eyebrow">SUA INTELIGÊNCIA, SEU UNIVERSO</div>
-          <h1>O que vamos <span>construir</span><br>hoje?</h1>
-          <p>Uma nova forma de pensar, criar e realizar.<br>A NEXORA está pronta para receber suas ideias.</p>
-          <div class="suggestions">
-            <button class="suggestion" data-prompt="Me ajude a organizar minhas ideias">✧ <span>Organizar minhas ideias</span></button>
-            <button class="suggestion" data-prompt="Quero planejar um projeto do zero">◷ <span>Planejar um projeto</span></button>
-            <button class="suggestion" data-prompt="Quero criar algo com programação">⌘ <span>Criar com programação</span></button>
-          </div>
+      <div class="top-actions">
+        <button class="icon-button voice-mode" id="voiceMode" type="button" aria-label="Ativar voz da assistente" title="Voz da assistente">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10v4m4-7v10m4-13v16m4-12v8m4-5v2"/></svg>
+        </button>
+        <button class="icon-button" id="newChat" type="button" aria-label="Nova conversa" title="Nova conversa">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <section class="conversation" id="conversation" aria-live="polite">
+      <div class="welcome-mark" id="welcome">
+        <div class="welcome-orbit">
+          <svg viewBox="0 0 64 64" aria-hidden="true">
+            <ellipse class="orbit" cx="32" cy="32" rx="27" ry="12" transform="rotate(-28 32 32)"/>
+            <path class="brain" d="M31.8 15.5c-4.9-4.2-12.7-.6-12.7 5.9-5.7 1.6-7.5 9-3.2 13-3.1 5.7.8 12.2 7.1 12.1 1.7 5.6 7.1 7.2 11.4 3.8V18.8c-.7-1.4-1.6-2.5-2.6-3.3Z"/>
+            <path class="brain" d="M32.2 15.5c4.9-4.2 12.7-.6 12.7 5.9 5.7 1.6 7.5 9 3.2 13 3.1 5.7-.8 12.2-7.1 12.1-1.7 5.6-7.1 7.2-11.4 3.8V18.8c.7-1.4 1.6-2.5 2.6-3.3Z"/>
+            <path class="fold" d="M24 23c4 0 5.5 3.2 5.5 6.2M20 36c4.4-1.1 7.8 1.2 8.2 5.3M40 23c-4 0-5.5 3.2-5.5 6.2M44 36c-4.4-1.1-7.8 1.2-8.2 5.3"/>
+            <circle class="orbit-dot" cx="55" cy="20" r="2.5"/>
+          </svg>
         </div>
-        <div class="messages" id="messages" aria-live="polite"></div>
-      </section>
-      <footer class="composer-area">
-        <form class="composer" id="chatForm">
-          <button type="button" class="attach-button" id="attachButton" aria-label="Anexar arquivo">＋</button>
-          <input type="file" id="fileInput" accept="image/*,video/*,.pdf,.txt" hidden>
-          <textarea id="messageInput" rows="1" placeholder="Converse com a NEXORA..." aria-label="Sua mensagem"></textarea>
-          <button type="button" class="voice-button" id="voiceButton" aria-label="Entrada por voz">◖</button>
-          <button type="submit" class="send-button" id="sendButton" aria-label="Enviar mensagem">↑</button>
-        </form>
-        <div class="composer-note">A NEXORA está em desenvolvimento. <span>Suas ideias começam aqui.</span></div>
-      </footer>
-    </main>
-  </div>
+      </div>
+      <div class="messages" id="messages"></div>
+    </section>
+
+    <footer class="composer-area">
+      <form class="composer" id="chatForm">
+        <button class="tool-button" id="attachButton" type="button" aria-label="Anexar arquivo" title="Anexar arquivo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m20.5 11.5-8.9 8.9a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7l-9.2 9.2a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg>
+        </button>
+        <input type="file" id="fileInput" accept="image/*,video/*,.pdf,.txt,.doc,.docx" hidden>
+        <textarea id="messageInput" rows="1" placeholder="Mensagem..." aria-label="Mensagem"></textarea>
+        <button class="tool-button mic-button" id="voiceButton" type="button" aria-label="Ditado por voz" title="Ditado por voz">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.5m-4 0h8"/></svg>
+        </button>
+        <button class="send-button" id="sendButton" type="submit" aria-label="Enviar mensagem" title="Enviar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>
+        </button>
+      </form>
+      <div class="composer-caption">NEXORA</div>
+    </footer>
+  </main>
   <div class="toast" id="toast" role="status"></div>
   <script src="app.js"></script>
 </body>
