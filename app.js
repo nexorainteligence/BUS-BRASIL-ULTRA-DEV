@@ -1,0 +1,17 @@
+const $ = (id) => document.getElementById(id);
+const form = $("chatForm"), input = $("messageInput"), messages = $("messages"), welcome = $("welcome"), toast = $("toast");
+let toastTimer;
+function notify(text){toast.textContent=text;toast.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove("show"),2600)}
+function addMessage(text,role){welcome.hidden=true;const node=document.createElement("div");node.className="message "+role;const label=document.createElement("span");label.className="message-label";label.textContent=role==="user"?"VOCÊ":"NEXORA";const body=document.createElement("div");body.textContent=text;node.append(label,body);messages.append(node);node.scrollIntoView({behavior:"smooth",block:"end"})}
+function send(text){const value=(text??input.value).trim();if(!value)return;addMessage(value,"user");input.value="";input.style.height="auto";setTimeout(()=>addMessage("Recebi sua mensagem. Esta é a interface inicial da NEXORA AI; o motor de inteligência ainda precisa ser conectado ao backend próprio para gerar respostas reais.","assistant"),350)}
+form.addEventListener("submit",e=>{e.preventDefault();send()});
+input.addEventListener("input",()=>{input.style.height="auto";input.style.height=Math.min(input.scrollHeight,130)+"px"});
+input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}});
+$("newChat").addEventListener("click",()=>{messages.replaceChildren();welcome.hidden=false;$("sidebar").classList.remove("open");input.focus()});
+document.querySelectorAll(".suggestion").forEach(button=>button.addEventListener("click",()=>send(button.dataset.prompt)));
+document.querySelectorAll(".nav-item").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll(".nav-item").forEach(item=>item.classList.remove("active"));button.classList.add("active");$("sectionName").textContent=button.textContent.trim();$("sidebar").classList.remove("open");if(button.dataset.panel!=="chat")notify("Área "+button.textContent.trim()+" preparada para integração.")}));
+$("mobileMenu").addEventListener("click",()=>$("sidebar").classList.toggle("open"));
+$("settingsButton").addEventListener("click",()=>notify("Configurações serão adicionadas nesta etapa do projeto."));
+$("attachButton").addEventListener("click",()=>$("fileInput").click());
+$("fileInput").addEventListener("change",e=>{const file=e.target.files[0];if(file){addMessage("Arquivo selecionado: "+file.name+" ("+Math.round(file.size/1024)+" KB)","user");notify("Prévia de anexos: integração de mídia pendente.")}e.target.value=""});
+$("voiceButton").addEventListener("click",()=>{const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SpeechRecognition){notify("Entrada por voz não é suportada neste navegador.");return}const recognition=new SpeechRecognition();recognition.lang="pt-BR";recognition.onresult=e=>{input.value+=(input.value?" ":"")+e.results[0][0].transcript;input.dispatchEvent(new Event("input"))};recognition.onerror=()=>notify("Não foi possível captar o áudio.");recognition.start();notify("Ouvindo…")});
